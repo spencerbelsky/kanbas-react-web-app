@@ -6,6 +6,7 @@ import Lab3 from "./Lab3";
 export default function Labs() {
   return (
     <div>
+      <h1> Spencer Belsky section 41239</h1>
       <h1>Labs</h1>
       <TOC />
       <Routes>
