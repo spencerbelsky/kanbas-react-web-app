@@ -1,0 +1,13 @@
+@media (min-width: 768px) {
+    .wd-ml-md-5 {
+        margin-left: 5.5rem !important;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px){
+    .wd-min{
+        margin-top:3rem !important;
+    }
+}
+
