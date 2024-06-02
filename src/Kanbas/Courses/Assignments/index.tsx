@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import '../index.css'
 export default function Assignments() {
-        return (
+    return (
         <>
             <div>
                 <div className="flex-fill" style={{
@@ -79,6 +79,16 @@ export default function Assignments() {
                                 <FaCheckCircle className="text-success" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
+                            <div>
+                                <span>
+                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
+                                </span>
+
+                                <span>
+                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
+                                </span>
+                            </div>
+
                         </li>
                         <li className="list-group-item"
                             style={{
@@ -94,6 +104,16 @@ export default function Assignments() {
                                 <FaCheckCircle className="text-success" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
+                            <div>
+                                <span>
+                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
+                                </span>
+
+                                <span>
+                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
+                                </span>
+                            </div>
+
                         </li>
                         <li className="list-group-item"
                             style={{
@@ -103,24 +123,25 @@ export default function Assignments() {
                         >
                             <BsGripVertical className="me-2" />
                             <FaBook className="mx-2" style={{ color: 'green' }} />
-                            <div>
-
-                                <a className="wd-assignment-link"
-                                    href="#/Kanbas/Courses/1234/Assignments/123">
-                                    A3 - JAVASCRIPT + REACT
-                                </a>
-                                <span>
-                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
-                                </span>
-                                <span>
-                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
-                                </span>
-                            </div>
+                            <a href='#/Kanbas/Courses/1234/Assignments/123' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+                                A3 - JAVASCRIPT + REACT
+                            </a>
                             <span className="float-end">
                                 <FaCheckCircle className="text-success" />
                                 <FaEllipsisV className="ms-2" />
                             </span>
+                            <div>
+                                <span>
+                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
+                                </span>
+
+                                <span>
+                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
+                                </span>
+                            </div>
+
                         </li>
+                        
                     </ul>
                 </li>
             </ul>

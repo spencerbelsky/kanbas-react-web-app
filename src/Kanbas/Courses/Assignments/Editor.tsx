@@ -1,3 +1,5 @@
+import "./Editor.css"
+
 export default function AssignmentEditor() {
   return (
     <div id="wd-assignments-editor">
@@ -23,15 +25,15 @@ export default function AssignmentEditor() {
         </div>
         <br />
         <div className="row py-4">
-          <div className="col">
+          <div className="col text-end">
             <label htmlFor="wd-points">Points</label>
           </div>
-          <div className="col "> 
+          <div className="col">
             <input id="wd-points" value={100} className="form-control" />
           </div>
         </div>
         <div className="row py-4">
-          <div className="col">
+          <div className="col text-end">
             <label htmlFor="wd-group">Assignment Group</label>
           </div>
           <div className="col">
@@ -43,7 +45,7 @@ export default function AssignmentEditor() {
           </div>
         </div>
         <div className="row py-4">
-          <div className="col">
+          <div className="col text-end">
             <label htmlFor="wd-display-grade-as">Display Grade As</label>
           </div>
           <div className="col">
@@ -55,7 +57,7 @@ export default function AssignmentEditor() {
           </div>
         </div>
         <div className="row py-4">
-          <div className="col">
+          <div className="col text-end">
             <label htmlFor="wd-submission-type">Submission Type</label>
           </div>
           <div className="col">
@@ -66,30 +68,25 @@ export default function AssignmentEditor() {
             </select>
           </div>
         </div>
-        <div className="row py-4">
-          <div className="col">
+        <div className="row py-4 border-radius">
+          <div className="col text-end">
             <label>Online Entry Options</label>
           </div>
           <div className="col">
             <br />
-          
-            <input type="checkbox" className="form-control" name="check-submission-type" id="wd-text-entry" />
-            <label htmlFor="wd-text-entry">Text Entry</label><br />
-            <input type="checkbox" className="form-control" name="check-submission-type" id="wd-website-ur" />
-            <label htmlFor="wd-website-ur">Website URL</label><br />
-            <input type="checkbox" className="form-control" name="check-submission-type" id="wd-media-recordings" />
-            <label htmlFor="wd-media-recordings">Media Recordings</label><br />
-            <input type="checkbox" className="form-control" name="check-submission-type" id="wd-student-annotation" />
-            <label htmlFor="wd-student-annotation">Student Annotations</label><br />
-            <input type="checkbox" className="form-control" name="check-submission-type" id="wd-wd-file-upload" />
-            <label htmlFor="wd-wd-file-upload">File Uploads</label>
 
+            <input type="checkbox" checked id="textEntry" className="input"/>
+            <label>Text Entry</label> <br />
+            <input type="checkbox" checked className="input"/> Website URL <br />
+            <label><input type="checkbox" checked /> Media recordings </label><br />
+            <input type="checkbox" /> Student Annotation <br />
+            <input type="checkbox" checked /> File Uploads <br />
+            <input type="checkbox" /> Restrict Upload File Types <br />
 
-            
           </div>
         </div>
         <div className="row py-4">
-          <div className="col">
+          <div className="col text-end">
             <label htmlFor="wd-assign-to">Assign To</label>
           </div>
           <div className="col">
@@ -97,7 +94,7 @@ export default function AssignmentEditor() {
           </div>
         </div>
         <div className="row py-4">
-          <div className="col">
+          <div className="col text-end">
             <label htmlFor="wd-due-date">Due</label>
           </div>
           <div className="col">

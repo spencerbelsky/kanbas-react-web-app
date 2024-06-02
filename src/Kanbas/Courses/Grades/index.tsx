@@ -34,7 +34,7 @@ export default function Grades() {
 
                 <div className="col">
                     <b>Assignment Names</b> <br />
-                    <FaMagnifyingGlass className="position-absolute" style={{ left: "10px", top: "10px" }} />
+                    <input type="text" className="form-control" placeholder="Search Assignments" />
                 </div>
             </div>
 
