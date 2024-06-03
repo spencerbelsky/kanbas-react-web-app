@@ -1,12 +1,18 @@
-import { FaCaretDown, FaCheckCircle, FaEllipsisV, FaGripVertical, FaPlus, FaPlusCircle, FaSquare } from "react-icons/fa";
+import { FaCaretDown, FaCheckCircle, FaEllipsisV, FaBook, FaPlus, FaPlusCircle } from "react-icons/fa";
 import { BsGripVertical } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
-import { FaBook } from "react-icons/fa";
-import { FaEllipsis, FaGrip, FaPenToSquare, FaSquareCaretDown } from "react-icons/fa6";
+import { Link, useParams, useLocation } from "react-router-dom";
+import * as db from "../../Database";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import '../index.css'
 export default function Assignments() {
+
+    const { pathname } = useLocation();
+    const cid = pathname.split("/")[3]
+    //console.log("cid", cid)
+    const assignments = db.default.assignments;
+    //console.log("assignments", assignments)
+
     return (
         <>
             <div>
@@ -64,85 +70,36 @@ export default function Assignments() {
                                 textAlign: "center",
                             }}>40% of Total</span>
                     </div>
+
                     <ul className="list-group wd-lessons">
-                        <li className="list-group-item"
-                            style={{
-                                padding: "10px",
+                        {assignments
+                            .filter((assignment: any) => assignment.course === cid)
+                            .map((assignment: any) => (
+                                <li className="list-group-item" style={{
+                                    padding: "10px",
+                                }}>
+                                    <BsGripVertical className="me-2" />
+                                    <FaBook className="mx-2" style={{ color: 'green' }} />
+                                    <Link to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+                                        {assignment.title}
+                                    </Link>
+                                    <span className="float-end">
+                                        <FaCheckCircle className="text-success" />
+                                        <FaEllipsisV className="ms-2" />
+                                    </span>
+                                    <div>
+                                        <span>
+                                            <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
+                                        </span>
 
-                            }}>
-                            <BsGripVertical className="me-2" />
-                            <FaBook className="mx-2" style={{ color: 'green' }} />
-                            <a href='#/Kanbas/Courses/1234}/Assignments/123' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-                                A1 - ENV + HTML
-                            </a>
-                            <span className="float-end">
-                                <FaCheckCircle className="text-success" />
-                                <FaEllipsisV className="ms-2" />
-                            </span>
-                            <div>
-                                <span>
-                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
-                                </span>
-
-                                <span>
-                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
-                                </span>
-                            </div>
-
-                        </li>
-                        <li className="list-group-item"
-                            style={{
-                                padding: "10px",
-
-                            }}>
-                            <BsGripVertical className="me-2" />
-                            <FaBook className="mx-2" style={{ color: 'green' }} />
-                            <a href='#/Kanbas/Courses/1234/Assignments/123' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-                                A2 - CSS + BOOTSTRAP
-                            </a>
-                            <span className="float-end">
-                                <FaCheckCircle className="text-success" />
-                                <FaEllipsisV className="ms-2" />
-                            </span>
-                            <div>
-                                <span>
-                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
-                                </span>
-
-                                <span>
-                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
-                                </span>
-                            </div>
-
-                        </li>
-                        <li className="list-group-item"
-                            style={{
-                                padding: "10px",
-
-                            }}
-                        >
-                            <BsGripVertical className="me-2" />
-                            <FaBook className="mx-2" style={{ color: 'green' }} />
-                            <a href='#/Kanbas/Courses/1234/Assignments/123' style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
-                                A3 - JAVASCRIPT + REACT
-                            </a>
-                            <span className="float-end">
-                                <FaCheckCircle className="text-success" />
-                                <FaEllipsisV className="ms-2" />
-                            </span>
-                            <div>
-                                <span>
-                                    <span style={{ color: 'red' }}>Multiple Modules</span> | <span style={{ fontWeight: 'bold' }}>Not Available Until </span> May 6 at 12:00am |
-                                </span>
-
-                                <span>
-                                    <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
-                                </span>
-                            </div>
-
-                        </li>
-                        
+                                        <span>
+                                            <span style={{ fontWeight: 'bold' }}>Due:</span> May 13 at 11:59pm | 100 pts
+                                        </span>
+                                    </div>
+                                </li>
+                            ))}
                     </ul>
+
                 </li>
             </ul>
         </>

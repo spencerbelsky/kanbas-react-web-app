@@ -2,8 +2,33 @@ import { LiaFileImportSolid } from "react-icons/lia";
 import { IoMdSettings } from "react-icons/io";
 import { FaFilter } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
+import * as db from "../../Database";
 
 export default function Grades() {
+    const currParams = useParams();
+    const cid = currParams.id;
+    const grades = db.default.grades;
+    const users = db.default.users;
+    const enrollments = db.default.enrollments;
+
+    console.log("enrollments", enrollments)
+    const currStudents = enrollments.filter((enrollment: any) => enrollment.course === cid);
+    console.log("currStudents", currStudents)
+    console.log("grades", grades)
+
+    const currGrades = [];
+    for (let i = 0; i < currStudents.length; i++) {
+        console.log(currStudents[i].user)
+        const studentGrades = grades.filter((grade: any) => grade.student === currStudents[i].user);
+        if (studentGrades) {
+            currGrades.push(studentGrades);
+        }
+    }
+
+    console.log("currGrades", currGrades)
+
+
     return (
         <div className="pl-5">
             <div className="row justify-content-end py-3">
@@ -59,6 +84,8 @@ export default function Grades() {
                             <td className="text-center">A3 CSS <br /> Out of 100</td>
                             <td className="text-center">A4 BOOTSTRAP <br /> Out of 100</td>
                         </tr>
+
+
                         <tr>
                             <td style={{ color: 'red' }}>Spencer Belsky</td>
                             <td className="d-flex justify-content-center"><input type="number" defaultValue={69} className=" form-control form-control-sm text-center" style={{ width: '70px' }}></input></td>
@@ -97,6 +124,23 @@ export default function Grades() {
                     </tbody>
                 </table>
             </div>
+
+            <div className="table table-striped table-bordered">
+
+                <div className="col">
+                    <div className="row py-3">
+                        <b>Student Name</b>
+                    </div>
+{/*                     
+                    {currGrades.map((student) => (
+                        <td className="text-left">{student} <br /> Out of 100</td>
+                    ))} */}
+                </div>
+                <div className="col">
+                    Assignment Names
+                </div>
+            </div>
         </div>
+
     )
 }

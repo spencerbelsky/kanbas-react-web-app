@@ -1,7 +1,20 @@
+import { useLocation} from "react-router";
+import {useParams } from "react-router-dom";
+import * as db from "../../Database";
 import "./Editor.css"
 
 export default function AssignmentEditor() {
+
+  const { pathname } = useLocation();
+  const currParam = useParams();
+  const aid = currParam.id;
+  const assignments = db.default.assignments;
+  //console.log("assignments", assignments)
+  const currAssignment = assignments.filter((assignment: any) => assignment._id === aid)[0];
+  //console.log("currAssignment", currAssignment)
+
   return (
+
     <div id="wd-assignments-editor">
       <div className="container">
         <div className="row">
@@ -11,22 +24,21 @@ export default function AssignmentEditor() {
         </div>
         <div className="row">
           <div className="col">
-            <input id="wd-name" value="A1 - ENV + HTML" className="form-control" />
+            <input id="wd-name" value={currAssignment.title} className="form-control" />
           </div>
         </div>
         <br />
         <div className="row">
           <div className="col">
             <textarea id="wd-description" className="form-control">
-              The assignment is available online
-              Submit a link to the landing page of
+              {currAssignment.description}
             </textarea>
           </div>
         </div>
         <br />
         <div className="row py-4">
           <div className="col text-end">
-            <label htmlFor="wd-points">Points</label>
+            <label htmlFor="wd-points">{currAssignment.points}</label>
           </div>
           <div className="col">
             <input id="wd-points" value={100} className="form-control" />
@@ -98,7 +110,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-due-date">Due</label>
           </div>
           <div className="col">
-            <input type="date" id="wd-text-fields-dob" value="2024-05-13" className="form-control" />
+            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control" />
             <br />
           </div>
         </div>
