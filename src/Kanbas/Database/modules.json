@@ -52,10 +52,62 @@
     ]
   },
   {
+    "_id": "M104",
+    "name": "Rocket Propulsion Systems",
+    "description": "Overview of different rocket propulsion systems.",
+    "course": "RS104",
+    "lessons": [
+      {
+        "_id": "L401",
+        "name": "Liquid Rocket Engines",
+        "description": "Understanding liquid rocket engines and their components.",
+        "module": "M104"
+      },
+      {
+        "_id": "L402",
+        "name": "Solid Rocket Motors",
+        "description": "Overview of solid rocket motors and their characteristics.",
+        "module": "M104"
+      },
+      {
+        "_id": "L403",
+        "name": "Hybrid Rocket Engines",
+        "description": "Introduction to hybrid rocket engines and their advantages.",
+        "module": "M104"
+      }
+    ]
+  },
+  {
+    "_id": "M105",
+    "name": "Rocket Propellant Chemistry",
+    "description": "Study of rocket propellant chemistry and formulation.",
+    "course": "RS105",
+    "lessons": [
+      {
+        "_id": "L501",
+        "name": "Oxidizers",
+        "description": "Overview of different types of rocket oxidizers.",
+        "module": "M105"
+      },
+      {
+        "_id": "L502",
+        "name": "Fuels",
+        "description": "Understanding different types of rocket fuels.",
+        "module": "M105"
+      },
+      {
+        "_id": "L503",
+        "name": "Additives",
+        "description": "Introduction to rocket propellant additives and their functions.",
+        "module": "M105"
+      }
+    ]
+  },
+  {
     "_id": "M103",
     "name": "Nozzle Design",
     "description": "Principles of rocket nozzle design and performance optimization.",
-    "course": "RS101",
+    "course": "RS106",
     "lessons": [
       {
         "_id": "L301",
@@ -81,19 +133,19 @@
     "_id": "M201",
     "name": "Fundamentals of Aerodynamics",
     "description": "Basic aerodynamic concepts and fluid dynamics principles.",
-    "course": "RS102"
+    "course": "RS107"
   },
   {
     "_id": "M202",
     "name": "Subsonic and Supersonic Flow",
     "description": "Understanding subsonic and supersonic aerodynamic behaviors.",
-    "course": "RS102"
+    "course": "RS108"
   },
   {
     "_id": "M203",
     "name": "Aerodynamic Heating",
     "description": "Study of aerodynamic heating and thermal protection systems.",
-    "course": "RS102"
+    "course": "RS109"
   },
   {
     "_id": "M301",

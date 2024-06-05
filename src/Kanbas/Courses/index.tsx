@@ -7,19 +7,13 @@ import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from 'react-icons/fa';
 import Grades from "./Grades";
-import * as db from "../Database";
+import AddAssignmentEditor from "./Assignments/AddAssignmentEditor";
 
-export default function Courses() {
-    const { cid } = useParams();
-    // console.log("cid", cid)
-    const courses = db.default.courses;
-    console.log("courses", courses)
+export default function Courses({ courses }: { courses: any[]}) {
+    const  param  = useParams();
+    const cid = param.id;
     const { pathname } = useLocation();
-    //const cid = pathname.split("/")[3]
     const course = courses.find((course) => course._id === cid);
-    // console.log("path name", pathname)
-    // console.log(course)
-    
     return (
         <div id="wd-courses">
             <h2 className="text-danger">
@@ -39,6 +33,7 @@ export default function Courses() {
                         <Route path="Assignments"
                             element={<Assignments />} />
                         <Route path="Assignments/:id" element={<AssignmentEditor />} />
+                        <Route path="Assignments/Editor" element={<AddAssignmentEditor />} />
                         <Route path="Grades" element={<Grades />} />
                     </Routes>
                 </div>

@@ -8,8 +8,8 @@ import * as db from "../../Database";
 export default function Grades() {
     const currParams = useParams();
     const courseId = currParams.id;
-    const grades = db.default.grades;
-    const users = db.default.users;
+    const grades = db.default.grades[0];
+    const users = db.default.users[0];
     //const enrollments = db.default.enrollments;
 
     // console.log("enrollments", enrollments)
@@ -29,7 +29,7 @@ export default function Grades() {
 
     // console.log("currGrades", currGrades)
 
-    const assignments = db.default.assignments.filter((assignment) => assignment.course === courseId);
+    const assignments = db.default.assignments[0].filter((assignment) => assignment.course === courseId);
     const enrollments = db.default.enrollments.filter((enrollment) => enrollment.course === courseId);
 
 

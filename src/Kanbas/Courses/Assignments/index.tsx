@@ -1,17 +1,33 @@
 import { FaCaretDown, FaCheckCircle, FaEllipsisV, FaBook, FaPlus, FaPlusCircle } from "react-icons/fa";
 import { BsGripVertical } from "react-icons/bs";
-import { Link, useParams, useLocation } from "react-router-dom";
-import * as db from "../../Database";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAssignment, addAssignment, updateAssignment, setAssignment } from "./reducer";
+import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import '../index.css'
 export default function Assignments() {
+    const param = useParams();
+    const courseId = param.id;
+    const dispatch = useDispatch();
+    const { assignments } = useSelector((state: any) => state.assignmentsReducer);
 
-    const { pathname } = useLocation();
-    const cid = pathname.split("/")[3]
-    //console.log("cid", cid)
-    const assignments = db.default.assignments;
-    //console.log("assignments", assignments)
+    const { assignment } = useSelector((state: any) => state.assignmentsReducer.assignment);
+
+    console.log(assignments)
+    console.log(assignment)
+    const [assignmentName, setAssignmentName] = useState("");
+
+    console.log("assignmentlist", assignments);
+    console.log("assignment", assignment)
+
+
+    // const assignment = assignments.find(
+    //     (assignment) => assignment.course === courseId);
+
+    const [assignmentIdToDelete, setAssignmentIdToDelete] = useState(null);
+
 
     return (
         <>
@@ -30,11 +46,13 @@ export default function Assignments() {
 
 
                     <div className="d-flex">
-                        <button id="wd-add-assignment" className="btn btn-lg btn-danger me-1 float-end">
-                            <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-                            Assignment
+                        <button id="wd-add-assignment" className="btn btn-lg btn-danger me-1 float-end"  >
+                            <Link to={`/Kanbas/Courses/${courseId}/Assignments/Editor`} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }} >
+                                <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+                                Assignment
+                            </Link>
                         </button>
-                        <button id="wd-add-assignment-group" className="btn btn-lg btn-secondary me-1 float-end">
+                        <button id="wd-add-assignment-group" className="btn btn-lg btn-secondary me-1 float-end" >
                             <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                             Group
                         </button>
@@ -73,16 +91,25 @@ export default function Assignments() {
 
                     <ul className="list-group wd-lessons">
                         {assignments
-                            .filter((assignment: any) => assignment.course === cid)
+                            .filter((assignment: any) => assignment.course === courseId)
                             .map((assignment: any) => (
                                 <li className="list-group-item" style={{
                                     padding: "10px",
                                 }}>
                                     <BsGripVertical className="me-2" />
                                     <FaBook className="mx-2" style={{ color: 'green' }} />
-                                    <Link to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}>
+                                    <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}  onClick={() => dispatch(setAssignment(assignment))}>
                                         {assignment.title}
                                     </Link>
+                                    <button className="btn btn-danger float-end" onClick={() => {
+                                        if (
+                                            window.confirm("Are you sure to delete this record?")
+                                        ) {
+                                            dispatch(deleteAssignment(assignment._id));
+                                        } else {
+                                            console.log("not delete")
+                                    }}}>
+                                    Delete</button>
                                     <span className="float-end">
                                         <FaCheckCircle className="text-success" />
                                         <FaEllipsisV className="ms-2" />

@@ -5,7 +5,7 @@ import "./Editor.css"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function AssignmentEditor() {
+export default function AddAssignmentEditor() {
   const dispatch = useDispatch();
   const currParam = useParams();
   const { pathname } = useLocation();
@@ -57,7 +57,7 @@ export default function AssignmentEditor() {
       <div className="container">
         <div className="row">
           <div className="col">
-            <label htmlFor="wd-name">Assignment Name</label>
+            <label htmlFor="wd-name">New Assignment Name</label>
           </div>
         </div>
         <div className="row">
@@ -158,22 +158,22 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-available-from">Available From</label>
           </div>
           <div className="col">
-            <input type="date" id="wd-text-fields-dob" value={currAssignment.available_from} className="form-control" onChange={(e) => dispatch(setAssignment({...currAssignment, available_from: e.target.value}))} />
+            <input type="date" id="wd-text-fields-dob" value={currAssignment.available_from} className="form-control"  onChange={(e) => dispatch(setAssignment({...currAssignment, available_from: e.target.value}))} />
             <br />
           </div>
           <div className="col">
             <label htmlFor="wd-until">Until</label>
           </div>
           <div className="col">
-            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control" onChange={(e) => dispatch(setAssignment({...currAssignment, due_date: e.target.value}))} />
+            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control"  onChange={(e) => dispatch(setAssignment({...currAssignment, due_date: e.target.value}))}/>
             <br />
           </div>
         </div>
 
         <div className="row">
           <div className="col">
-            <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
-              <button onClick={() => dispatch(updateAssignment({...assignment, course: cid}))} className="btn btn-primary">
+            <Link to={`/Kanbas/Courses/${aid}/Assignments`}>
+              <button onClick={() => dispatch(addAssignment({...assignment, course: cid}))} className="btn btn-primary">
                 Save
               </button>
             </Link>
