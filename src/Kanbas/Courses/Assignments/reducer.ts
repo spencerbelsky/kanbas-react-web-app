@@ -32,8 +32,13 @@ const assignmentsSlice = createSlice({
       );
     },
     updateAssignment: (state, action) => {
+      console.log("update assignments:")
+      console.log("state assignments", state.assignments)
+      console.log("action", action.payload)
+      
       state.assignments = state.assignments.map((assignment) => {
         if (assignment._id === action.payload._id) {
+          console.log(state.assignments)
           return action.payload;
         } else {
           return assignment;
@@ -41,12 +46,23 @@ const assignmentsSlice = createSlice({
       });
     },
     setAssignment: (state, action) => {
+      console.log("set assignment:")
+      console.log("state assignments", state.assignment)
+      console.log("action", action.payload)
       state.assignment = action.payload;
+      console.log("state assignment", state.assignment)
+    },
+    setAssignments: (state, action) => {
+      console.log("set assignments (all assignments):")
+      console.log("state assignments", state.assignment)
+      console.log("action", action.payload)
+      state.assignments = action.payload;
+      console.log("state assignment after the set", state.assignment)
     },
   },
 });
 
 
 export const { addAssignment, deleteAssignment,
-  updateAssignment, setAssignment } = assignmentsSlice.actions;
+  updateAssignment, setAssignment, setAssignments } = assignmentsSlice.actions;
 export default assignmentsSlice.reducer;

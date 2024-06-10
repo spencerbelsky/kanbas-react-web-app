@@ -1,56 +1,35 @@
-import { addAssignment, deleteAssignment, updateAssignment, setAssignment } from "./reducer";
+import { addAssignment, deleteAssignment, updateAssignment, setAssignment, setAssignments } from "./reducer";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import * as db from "../../Database";
+import * as client from "./client";
 import "./Editor.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function AssignmentEditor() {
   const dispatch = useDispatch();
   const currParam = useParams();
   const { pathname } = useLocation();
-  //console.log("currParam", currParam)
   const aid = currParam.id;
   const cid = pathname.split("/")[3];
-  //console.log("aid", aid)
-  //console.log("cid", cid)
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const { assignment } = useSelector((state: any) => state.assignmentsReducer.assignment);
-  console.log("assignments", assignments)
-  console.log("assignment", assignment)
-
-
   const currAssignment = assignments.filter((assignment: any) => assignment._id === aid)[0] ||
     { _id: "0", title: "New Assignment", description: "New Assignment Description", points: 100, due_date: "2025-05-06", available_from: "2024-05-06", };
 
+
   //const currAssignment = assignments.filter((assignment: any) => assignment._id === aid)[0];
-  console.log("currAssignment", currAssignment)
-  console.log("currAssignment.title", currAssignment.title)
+  //console.log("currAssignment", currAssignment)
+  //console.log("currAssignment.title", currAssignment.title)
   const navigate = useNavigate();
-  
-  const handleSave = () => {
-    console.log("Actually saving assignment TBD in later assignments");
-    navigate(`/Kanbas/Courses/${aid}/Assignments`);
-  };
 
-  const [assignmentName, setAssignmentName] = useState("");
-  //const { assignments } = useSelector((state: any) => state.assignment);
+  const updateAssignmentHandler = async () => {
+    // I use a work around with currAssignment bc my assignment useSelectior on line 18 doesn't work
+    const status = await client.updateAssignment(currAssignment);
+    if (status === 200) { }
+    dispatch(updateAssignment(currAssignment));
+  }
 
-  //console.log("aid", aid)
-  
-  //const assignments = db.default.assignments[0];
-  //console.log("assignments", assignments)
-
-  // const currAssignment = assignments.filter((assignment: any) => assignment._id === aid)[0] || {
-  //   currAssignment: {
-  //   _id: "0",
-  //   title: "New Assignment",
-  //   description: "New Assignment Description",
-  //   points: 100,
-  //   due_date: "2025-05-06",
-  //   available_from: "2024-05-06",
-  //   }
-  // };
   return (
 
     <div id="wd-assignments-editor">
@@ -62,7 +41,8 @@ export default function AssignmentEditor() {
         </div>
         <div className="row">
           <div className="col">
-            <input id="wd-name" value={currAssignment.title} className="form-control"  onChange={(e) => dispatch(setAssignment({...currAssignment, title: e.target.value}))}/>
+            <input id="wd-name" value={currAssignment.title} className="form-control"
+             onChange={(e) => dispatch(updateAssignment({ ...currAssignment, title: e.target.value }))} />
           </div>
         </div>
         <br />
@@ -71,7 +51,7 @@ export default function AssignmentEditor() {
         </div>
         <div className="row">
           <div className="col">
-            <input id="wd-description" className="form-control" value={currAssignment.description} onChange={(e) => dispatch(setAssignment({...currAssignment, description: e.target.value}))}/>
+            <input id="wd-description" className="form-control" value={currAssignment.description} onChange={(e) => dispatch(updateAssignment({ ...currAssignment, description: e.target.value }))} />
           </div>
         </div>
         <br />
@@ -80,7 +60,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-points">Points</label>
           </div>
           <div className="col">
-            <input id="wd-points" value={currAssignment.points} className="form-control" onChange={(e) => dispatch(setAssignment({...currAssignment, points: e.target.value}))}/>
+            <input id="wd-points" value={currAssignment.points} className="form-control" onChange={(e) => dispatch(updateAssignment({ ...currAssignment, points: e.target.value }))} />
           </div>
         </div>
         <div className="row py-4">
@@ -149,7 +129,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-due-date">Due</label>
           </div>
           <div className="col">
-            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control" onChange={(e) => dispatch(setAssignment({...currAssignment, due_date: e.target.value}))}/>
+            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control" onChange={(e) => dispatch(updateAssignment({ ...currAssignment, due_date: e.target.value }))} />
             <br />
           </div>
         </div>
@@ -158,14 +138,14 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-available-from">Available From</label>
           </div>
           <div className="col">
-            <input type="date" id="wd-text-fields-dob" value={currAssignment.available_from} className="form-control" onChange={(e) => dispatch(setAssignment({...currAssignment, available_from: e.target.value}))} />
+            <input type="date" id="wd-text-fields-dob" value={currAssignment.available_from} className="form-control" onChange={(e) => dispatch(updateAssignment({ ...currAssignment, available_from: e.target.value }))} />
             <br />
           </div>
           <div className="col">
             <label htmlFor="wd-until">Until</label>
           </div>
           <div className="col">
-            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control" onChange={(e) => dispatch(setAssignment({...currAssignment, due_date: e.target.value}))} />
+            <input type="date" id="wd-text-fields-dob" value={currAssignment.due_date} className="form-control" onChange={(e) => dispatch(updateAssignment({ ...currAssignment, due_date: e.target.value }))} />
             <br />
           </div>
         </div>
@@ -173,7 +153,7 @@ export default function AssignmentEditor() {
         <div className="row">
           <div className="col">
             <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
-              <button onClick={() => dispatch(updateAssignment({...assignment, course: cid}))} className="btn btn-primary">
+              <button onClick={updateAssignmentHandler} className="btn btn-primary">
                 Save
               </button>
             </Link>

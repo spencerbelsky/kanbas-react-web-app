@@ -2,8 +2,9 @@ import { FaCaretDown, FaCheckCircle, FaEllipsisV, FaBook, FaPlus, FaPlusCircle }
 import { BsGripVertical } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAssignment, addAssignment, updateAssignment, setAssignment } from "./reducer";
-import { useState } from "react";
+import { deleteAssignment, addAssignment, updateAssignment, setAssignments, setAssignment } from "./reducer";
+import { useEffect, useState } from "react";
+import * as client from "./client";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import '../index.css'
@@ -12,22 +13,19 @@ export default function Assignments() {
     const courseId = param.id;
     const dispatch = useDispatch();
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-
     const { assignment } = useSelector((state: any) => state.assignmentsReducer.assignment);
+    
+    useEffect(() => {
+        client.findAssignmentsForCourse(courseId).then((assignments) => {
+            dispatch(setAssignments(assignments));
+        });
+    }, [courseId, dispatch]);
 
-    console.log(assignments)
-    console.log(assignment)
-    const [assignmentName, setAssignmentName] = useState("");
-
-    console.log("assignmentlist", assignments);
-    console.log("assignment", assignment)
-
-
-    // const assignment = assignments.find(
-    //     (assignment) => assignment.course === courseId);
-
-    const [assignmentIdToDelete, setAssignmentIdToDelete] = useState(null);
-
+    const deleteAssignmentHandler = (assignmentId: string) => {
+        client.deleteAssignment(assignmentId).then(() => {
+            dispatch(deleteAssignment(assignmentId));
+        });
+    };
 
     return (
         <>
@@ -98,18 +96,19 @@ export default function Assignments() {
                                 }}>
                                     <BsGripVertical className="me-2" />
                                     <FaBook className="mx-2" style={{ color: 'green' }} />
-                                    <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }}  onClick={() => dispatch(setAssignment(assignment))}>
+                                    <Link to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`} style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold' }} onClick={() => dispatch(setAssignment(assignment))}>
                                         {assignment.title}
                                     </Link>
                                     <button className="btn btn-danger float-end" onClick={() => {
                                         if (
                                             window.confirm("Are you sure to delete this record?")
                                         ) {
-                                            dispatch(deleteAssignment(assignment._id));
+                                            deleteAssignmentHandler(assignment._id);
                                         } else {
                                             console.log("not delete")
-                                    }}}>
-                                    Delete</button>
+                                        }
+                                    }}>
+                                        Delete</button>
                                     <span className="float-end">
                                         <FaCheckCircle className="text-success" />
                                         <FaEllipsisV className="ms-2" />
