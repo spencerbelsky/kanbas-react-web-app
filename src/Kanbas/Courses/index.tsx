@@ -8,6 +8,7 @@ import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from 'react-icons/fa';
 import Grades from "./Grades";
 import AddAssignmentEditor from "./Assignments/AddAssignmentEditor";
+import PeopleTable from "./People/People";
 
 export default function Courses({ courses }: { courses: any[]}) {
     const  param  = useParams();
@@ -35,6 +36,8 @@ export default function Courses({ courses }: { courses: any[]}) {
                         <Route path="Assignments/:id" element={<AssignmentEditor />} />
                         <Route path="Assignments/Editor" element={<AddAssignmentEditor />} />
                         <Route path="Grades" element={<Grades />} />
+                        <Route path="People" element={<PeopleTable />} />
+                        <Route path="People/:uid" element={<PeopleTable />} />
                     </Routes>
                 </div>
             </div>
