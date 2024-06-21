@@ -18,7 +18,6 @@ export default function Signin() {
             console.log("could not log in")
         }
         navigate("/Kanbas/Account/Profile");
-        console.log("logged in")
     };
 
     return (
